@@ -4,7 +4,7 @@ from openai import OpenAI
 # Show title and description.
 st.title("💬 Chatbot")
 st.write(
-    "Welcome to Chatbot, a new OpenAI-powered chatbot!"
+    "Welcome to Chatbot, a new OpenAI-powered chatbot! "
     "Feel free to ask me anything!"
 )
 
