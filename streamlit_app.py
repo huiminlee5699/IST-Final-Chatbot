@@ -45,21 +45,21 @@ if prompt := st.chat_input("What would you like to know today?"):
 
     # Stream the response to the chat using `st.write_stream`, then store it in 
     # session state.
-    with st.chat_message("assistant"):
-    response_container = st.empty()  # placeholder for streaming text
-    full_response = ""
-    for chunk in stream:
-        if chunk.choices[0].delta.content:
-            full_response += chunk.choices[0].delta.content
+        with st.chat_message("assistant"):
+        response_container = st.empty()  # placeholder for streaming text
+        full_response = ""
+        for chunk in stream:
+            if chunk.choices[0].delta.content:
+                full_response += chunk.choices[0].delta.content
+                response_container.markdown(full_response)
+    
+        # After streaming, check word count and append message if needed
+        word_count = len(full_response.split())
+        if word_count > 100:
+            full_response += (
+                "\n\nWant to get inside my brain? Click here to find out more: "
+                "https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/"
+            )
             response_container.markdown(full_response)
-
-    # After streaming, check word count and append message if needed
-    word_count = len(full_response.split())
-    if word_count > 100:
-        full_response += (
-            "\n\nWant to get inside my brain? Click here to find out more: "
-            "https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/"
-        )
-        response_container.markdown(full_response)
-
-    st.session_state.messages.append({"role": "assistant", "content": full_response})
+    
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
