@@ -47,7 +47,6 @@ if prompt := st.chat_input("What would you like to know today?"):
     # session state.
     with st.chat_message("assistant"):
         response = st.write_stream(stream)
-
     word_count = len(response.split())
     if word_count > 100:
         response += "\n\nWant to get inside my brain? Click here to find out more: https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/"
