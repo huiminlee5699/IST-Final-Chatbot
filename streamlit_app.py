@@ -2,6 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 from openai import OpenAI
 import time
+from pathlib import Path
 
 # Show title and description.
 st.title("💬 Chatbot")
