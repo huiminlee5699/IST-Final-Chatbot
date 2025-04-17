@@ -59,20 +59,12 @@ if prompt := st.chat_input("What would you like to know today?"):
         # Store the final response in session state
         st.session_state.messages.append({"role": "assistant", "content": full_response})
 
-# Add custom CSS to position a fixed element above the chat input
+# Add custom CSS for a fixed footer at the bottom of the page
 st.markdown("""
 <style>
-.stChatInputContainer {
-    padding-top: 60px !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# Use components.html to create a fixed message above the chat input
-components.html("""
-<div style="
+footer {
     position: fixed;
-    bottom: 75px;
+    bottom: 0;
     left: 0;
     right: 0;
     background: #f9f9f9;
@@ -81,11 +73,27 @@ components.html("""
     font-size: 0.9rem;
     font-family: sans-serif;
     text-align: center;
-    z-index: 9999;
-">
+    z-index: 998;
+}
+
+/* Add padding to the bottom of the page to prevent content from being hidden by the footer */
+.main .block-container {
+    padding-bottom: 80px;
+}
+
+/* Ensure the chat input stays above the footer */
+.stChatInputContainer {
+    z-index: 999;
+    position: relative;
+    background: white;
+    margin-bottom: 10px;
+}
+</style>
+
+<footer>
     💡🧠🤓 <strong>Want to learn how I come up with responses?</strong>
     <a href="https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/" target="_blank" style="color: #007BFF; text-decoration: none;">
         Read more here →
     </a>
-</div>
-""", height=100)
+</footer>
+""", unsafe_allow_html=True)
