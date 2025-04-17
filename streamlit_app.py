@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 from openai import OpenAI
 import time
 
@@ -66,16 +67,17 @@ if prompt := st.chat_input("What would you like to know today?"):
     # Store the final response in session state
     st.session_state.messages.append({"role": "assistant", "content": full_response})
 
-bottom_note.markdown(
+# Inject HTML at the bottom of the page using a fixed container
+components.html(
     """
-    <hr>
-    <div style='text-align: center; font-size: 0.95rem;'>
+    <div style="position: relative; margin-top: 50px; padding: 20px 0; text-align: center; font-size: 0.95rem; color: #333;">
+        <hr style="margin-bottom: 10px;">
         💡🧠🤓 <strong>Want to learn how I come up with responses?</strong> 💡🧠🤓 <br>
         Visit this link to find out more:<br>
-        <a href='https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/' target='_blank'>
+        <a href="https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/" target="_blank">
             https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/
         </a>
     </div>
     """,
-    unsafe_allow_html=True
+    height=120,
 )
