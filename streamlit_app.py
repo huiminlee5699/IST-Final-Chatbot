@@ -59,28 +59,33 @@ if prompt := st.chat_input("What would you like to know today?"):
         # Store the final response in session state
         st.session_state.messages.append({"role": "assistant", "content": full_response})
 
-# Add proper spacing before the footer
-st.markdown("<br><br><br>", unsafe_allow_html=True)
+# Add custom CSS to position a fixed element above the chat input
+st.markdown("""
+<style>
+.stChatInputContainer {
+    padding-top: 60px !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
-# Create a footer container at the bottom of the page
-footer = st.container()
-
-# Add the footer content
-with footer:
-    st.markdown("""
-    <div style="
-        background: #f9f9f9;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        font-size: 0.9rem;
-        font-family: sans-serif;
-        margin-top: 30px;
-        text-align: center;
-    ">
-    💡🧠🤓 <strong>Want to learn how I come up with responses?</strong><br>
+# Use components.html to create a fixed message above the chat input
+components.html("""
+<div style="
+    position: fixed;
+    bottom: 75px;
+    left: 0;
+    right: 0;
+    background: #f9f9f9;
+    padding: 15px;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
+    font-family: sans-serif;
+    text-align: center;
+    z-index: 9999;
+">
+    💡🧠🤓 <strong>Want to learn how I come up with responses?</strong>
     <a href="https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/" target="_blank" style="color: #007BFF; text-decoration: none;">
         Read more here →
     </a>
-    </div>
-    """, unsafe_allow_html=True)
+</div>
+""", height=100)
