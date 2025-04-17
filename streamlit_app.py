@@ -92,7 +92,7 @@ footer {
 
 <footer>
     💡🧠🤓 <strong>Want to learn how I come up with responses?</strong>
-    <a href="https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/" target="_blank" style="color: #007BFF; text-decoration: none;">
+    <a href="https://www.figma.com/proto/ZeWFZShKd7Pu8N3Wwj8wri/Transparency-card?page-id=0%3A1&node-id=1-2&viewport=56%2C354%2C0.18&t=zH28jDrK45ZUFtq5-8&scaling=scale-down&content-scaling=fixed&hide-ui=1" target="_blank" style="color: #007BFF; text-decoration: none;">
         Read more here →
     </a>
 </footer>
