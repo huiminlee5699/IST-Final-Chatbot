@@ -60,7 +60,7 @@ if prompt := st.chat_input("What would you like to know today?"):
             msg for msg in st.session_state.messages if msg["role"] == "assistant"
         ]
 
-            response_container.markdown(full_response)
+        response_container.markdown(full_response)
 
     # Store the final response in session state
     st.session_state.messages.append({"role": "assistant", "content": full_response})
