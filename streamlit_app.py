@@ -67,17 +67,42 @@ if prompt := st.chat_input("What would you like to know today?"):
     # Store the final response in session state
     st.session_state.messages.append({"role": "assistant", "content": full_response})
 
-# Inject HTML at the bottom of the page using a fixed container
+# Sticky footer that stays below the chat input, fixed to the bottom of the screen
 components.html(
     """
-    <div style="position: relative; margin-top: 50px; padding: 20px 0; text-align: center; font-size: 0.95rem; color: #333;">
-        <hr style="margin-bottom: 10px;">
-        💡🧠🤓 <strong>Want to learn how I come up with responses?</strong> 💡🧠🤓 <br>
+    <style>
+    .footer-note {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        padding: 10px;
+        text-align: center;
+        font-size: 0.9rem;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 9999;
+    }
+
+    .footer-note a {
+        color: #007BFF;
+        text-decoration: none;
+    }
+
+    .footer-note a:hover {
+        text-decoration: underline;
+    }
+
+    body { margin-bottom: 80px; }  /* Prevent overlap with fixed footer */
+    </style>
+
+    <div class="footer-note">
+        💡🧠🤓 <strong>Want to learn how I come up with responses?</strong><br>
         Visit this link to find out more:<br>
         <a href="https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/" target="_blank">
             https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/
         </a>
     </div>
     """,
-    height=120,
+    height=500,
 )
