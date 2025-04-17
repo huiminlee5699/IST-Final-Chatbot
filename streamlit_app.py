@@ -69,37 +69,37 @@ if prompt := st.chat_input("What would you like to know today?"):
 
 components.html(
     """
-    <div id="custom-footer" style="
-        display: none;
-        margin-top: 20px;
-        padding: 10px;
-        text-align: center;
+    <style>
+    #floating-note {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 280px;
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 8px rgba(0,0,0,0.1);
         font-size: 0.9rem;
-        background-color: #f9f9f9;
-        color: #333;
-        border-top: 1px solid #ccc;
-    ">
+        z-index: 10000;
+    }
+
+    #floating-note a {
+        color: #007BFF;
+        text-decoration: none;
+    }
+
+    #floating-note a:hover {
+        text-decoration: underline;
+    }
+
+    </style>
+
+    <div id="floating-note">
         💡🧠🤓 <strong>Want to learn how I come up with responses?</strong><br>
-        Visit this link to find out more:<br>
         <a href="https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/" target="_blank">
-            https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/
+            Read more here
         </a>
     </div>
-
-    <script>
-    const footer = document.getElementById("custom-footer");
-
-    const observer = new MutationObserver(() => {
-        const chatInputBox = document.querySelector('[data-testid="stChatInput"]');
-        if (chatInputBox && footer && !footer.isAppended) {
-            chatInputBox.parentElement.appendChild(footer);
-            footer.style.display = "block";
-            footer.isAppended = true;
-        }
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
-    </script>
     """,
-    height=0  # we don't need any space from Streamlit for this
+    height=0
 )
