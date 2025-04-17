@@ -27,6 +27,7 @@ for message in st.session_state.messages:
 
 # Create a chat input field to allow the user to enter a message. This will display
 # automatically at the bottom of the page.
+bottom_note = st.empty()
 if prompt := st.chat_input("What would you like to know today?"):
 
     # Store and display the current prompt.
@@ -65,7 +66,7 @@ if prompt := st.chat_input("What would you like to know today?"):
     # Store the final response in session state
     st.session_state.messages.append({"role": "assistant", "content": full_response})
 
-st.markdown(
+bottom_note.markdown(
     """
     <hr>
     <div style='text-align: center; font-size: 0.95rem;'>
