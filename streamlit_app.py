@@ -85,7 +85,7 @@ footer {
 .stChatInputContainer {
     z-index: 999;
     position: relative;
-    background: white;
+    background: transparent;
     margin-bottom: 10px;
 }
 </style>
