@@ -69,37 +69,26 @@ if prompt := st.chat_input("What would you like to know today?"):
 
 components.html(
     """
-    <style>
-    #floating-note {
+    <div id="floating-note" style="
         position: fixed;
         bottom: 20px;
         right: 20px;
         width: 280px;
         background: #f9f9f9;
         padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         font-size: 0.9rem;
-        z-index: 10000;
-    }
-
-    #floating-note a {
-        color: #007BFF;
-        text-decoration: none;
-    }
-
-    #floating-note a:hover {
-        text-decoration: underline;
-    }
-
-    </style>
-
-    <div id="floating-note">
+        z-index: 9999;
+        font-family: sans-serif;
+    ">
         💡🧠🤓 <strong>Want to learn how I come up with responses?</strong><br>
-        <a href="https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/" target="_blank">
-            Read more here
+        <a href="https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/"
+           target="_blank"
+           style="color: #007BFF; text-decoration: none;">
+           Read more here →
         </a>
     </div>
     """,
-    height=0
+    height=100,
 )
