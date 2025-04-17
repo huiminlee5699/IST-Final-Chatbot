@@ -60,13 +60,21 @@ if prompt := st.chat_input("What would you like to know today?"):
             msg for msg in st.session_state.messages if msg["role"] == "assistant"
         ]
 
-        # If this is an even-numbered assistant message (2nd, 4th, etc.)
-        if len(assistant_messages) % 2 == 1:
-            full_response += (
-                "\n\n --------------------- \n 💡🧠🤓 Want to learn how I come up with responses? 💡🧠🤓  Visit this link to find out more: "
-                "https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/"
-            )
             response_container.markdown(full_response)
 
     # Store the final response in session state
     st.session_state.messages.append({"role": "assistant", "content": full_response})
+
+st.markdown(
+    """
+    <hr>
+    <div style='text-align: center; font-size: 0.95rem;'>
+        💡🧠🤓 <strong>Want to learn how I come up with responses?</strong><br>
+        Visit this link to find out more:<br>
+        <a href='https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/' target='_blank'>
+            https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/
+        </a>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
