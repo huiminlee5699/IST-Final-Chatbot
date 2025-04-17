@@ -16,31 +16,21 @@ openai_api_key = st.secrets["openai_api_key"]
 # Create an OpenAI client.
 client = OpenAI(api_key=openai_api_key)
 
-# Create a session state variable to store the chat messages.
+# Create a session state variable to store the chat messages. This ensures that the
+# messages persist across reruns.
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Display the existing chat messages via `st.chat_message`.
+# Display the existing chat messages via st.chat_message.
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# 1) Inject CSS to make the chat_input render in-flow instead of fixed at bottom
-components.html(
-    """
-    <style>
-      .stChatFloatingInputContainer {
-        position: static !important;
-        bottom: auto !important;
-      }
-    </style>
-    """,
-    height=0,
-    scrolling=False,
-)
-
-# 2) Render the chat input in the natural flow of the page
+# Create a chat input field to allow the user to enter a message. This will display
+# automatically at the bottom of the page.
+bottom_note = st.empty()
 if prompt := st.chat_input("What would you like to know today?"):
+
     # Store and display the current prompt.
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
@@ -56,6 +46,8 @@ if prompt := st.chat_input("What would you like to know today?"):
         stream=True,
     )
 
+    time.sleep(1)
+    
     # Stream the assistant response while building it up
     with st.chat_message("assistant"):
         response_container = st.empty()  # placeholder for streaming text
@@ -65,26 +57,21 @@ if prompt := st.chat_input("What would you like to know today?"):
                 full_response += chunk.choices[0].delta.content
                 response_container.markdown(full_response)
 
+        # Count previous assistant messages
+        assistant_messages = [
+            msg for msg in st.session_state.messages if msg["role"] == "assistant"
+        ]
+
+        response_container.markdown(full_response)
+
     # Store the final response in session state
     st.session_state.messages.append({"role": "assistant", "content": full_response})
 
-# 3) Render your footer below the chat input
-footer_html = """
-<div style="
-    width: 100%;
-    background: #f9f9f9;
-    padding: 12px 0;
-    text-align: center;
-    border-top: 1px solid #eaeaea;
-    font-size: 0.9rem;
-    font-family: sans-serif;
-">
-  💡🧠🤓 <strong>Want to learn how I come up with responses?</strong>
-  <a href="https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/"
-     style="color:#007BFF; text-decoration:none; margin-left:6px;"
-     target="_blank">
-    Read more here →
-  </a>
-</div>
-"""
-st.markdown(footer_html, unsafe_allow_html=True)
+footer_path = Path(__file__).parent / "footer.html"
+if footer_path.exists():
+    footer_html = footer_path.read_text()
+    # You can use st.markdown or components.html; 
+    # here we use components.html to avoid any trimming.
+    components.html(footer_html, height=80, scrolling=False)
+else:
+    st.error(f"Could not find footer.html at {footer_path}")
