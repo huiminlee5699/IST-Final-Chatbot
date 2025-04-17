@@ -1,78 +1,85 @@
 import streamlit as st
-import streamlit.components.v1 as components
 from openai import OpenAI
 import time
-from pathlib import Path
 
-# Show title and description.
+# 0) CSS override injected into the main page,
+#    so the chat_input container becomes static.
+st.markdown(
+    """
+    <style>
+      /* make the chat_input render inline instead of fixed */
+      .stChatFloatingInputContainer {
+        position: static !important;
+        bottom: auto !important;
+      }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# 1) Show title and description.
 st.title("💬 Chatbot")
 st.write(
     "Welcome to Chatbot, a new OpenAI-powered chatbot! "
     "Feel free to ask me anything!"
 )
 
-# Use the API key from Streamlit secrets
+# 2) API key and client setup.
 openai_api_key = st.secrets["openai_api_key"]
-
-# Create an OpenAI client.
 client = OpenAI(api_key=openai_api_key)
 
-# Create a session state variable to store the chat messages. This ensures that the
-# messages persist across reruns.
+# 3) Persisted chat history.
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Display the existing chat messages via st.chat_message.
+# 4) Render past messages.
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Create a chat input field to allow the user to enter a message. This will display
-# automatically at the bottom of the page.
-bottom_note = st.empty()
+# 5) Now the chat_input appears right here, in‑flow.
 if prompt := st.chat_input("What would you like to know today?"):
-
-    # Store and display the current prompt.
+    # record & display user
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # Generate a response using the OpenAI API.
+    # stream assistant reply
     stream = client.chat.completions.create(
         model="gpt-3.5-turbo",
-        messages=[
-            {"role": m["role"], "content": m["content"]}
-            for m in st.session_state.messages
-        ],
+        messages=[{"role": m["role"], "content": m["content"]} for m in st.session_state.messages],
         stream=True,
     )
-
-    time.sleep(1)
-    
-    # Stream the assistant response while building it up
     with st.chat_message("assistant"):
-        response_container = st.empty()  # placeholder for streaming text
+        response_container = st.empty()
         full_response = ""
         for chunk in stream:
             if chunk.choices[0].delta.content:
                 full_response += chunk.choices[0].delta.content
                 response_container.markdown(full_response)
 
-        # Count previous assistant messages
-        assistant_messages = [
-            msg for msg in st.session_state.messages if msg["role"] == "assistant"
-        ]
-
-        response_container.markdown(full_response)
-
-    # Store the final response in session state
+    # save assistant
     st.session_state.messages.append({"role": "assistant", "content": full_response})
 
-footer_path = Path(__file__).parent / "footer.html"
-if footer_path.exists():
-    footer_html = footer_path.read_text()
-    # You can use st.markdown or components.html; 
-    # here we use components.html to avoid any trimming.
-    components.html(footer_html, height=80, scrolling=False)
-else:
-    st.error(f"Could not find footer.html at {footer_path}")
+# 6) Finally — your footer, *below* the input.
+st.markdown(
+    """
+    <div style="
+        width: 100%;
+        background: #f9f9f9;
+        padding: 12px 0;
+        text-align: center;
+        border-top: 1px solid #eaeaea;
+        font-size: 0.9rem;
+        font-family: sans-serif;
+    ">
+      💡🧠🤓 <strong>Want to learn how I come up with responses?</strong>
+      <a href="https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/"
+         style="color:#007BFF; text-decoration:none; margin-left:6px;"
+         target="_blank">
+        Read more here →
+      </a>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
