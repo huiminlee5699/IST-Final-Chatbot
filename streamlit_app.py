@@ -69,26 +69,34 @@ if prompt := st.chat_input("What would you like to know today?"):
 
 components.html(
     """
-    <div id="floating-note" style="
+    <style>
+      /* make the footer span the full width and sit at the bottom */
+      #footer {
         position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 280px;
+        bottom: 0;
+        left: 0;
+        width: 100%;
         background: #f9f9f9;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        padding: 12px 0;
+        text-align: center;
         font-size: 0.9rem;
-        z-index: 9999;
         font-family: sans-serif;
-    ">
-        💡🧠🤓 <strong>Want to learn how I come up with responses?</strong><br>
-        <a href="https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/"
-           target="_blank"
-           style="color: #007BFF; text-decoration: none;">
-           Read more here →
-        </a>
+        box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+        z-index: 9999;
+      }
+      #footer a {
+        color: #007BFF;
+        text-decoration: none;
+        margin-left: 6px;
+      }
+    </style>
+    <div id="footer">
+      💡🧠🤓 <strong>Want to learn how I come up with responses?</strong>
+      <a href="https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/" target="_blank">
+        Read more here →
+      </a>
     </div>
     """,
-    height=100,
+    height=80,  # adjust if you need more/less vertical space
+    scrolling=False
 )
