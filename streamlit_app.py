@@ -69,7 +69,7 @@ st.markdown(
     """
     <hr>
     <div style='text-align: center; font-size: 0.95rem;'>
-        💡🧠🤓 <strong>Want to learn how I come up with responses?</strong><br>
+        💡🧠🤓 <strong>Want to learn how I come up with responses?</strong> 💡🧠🤓 <br>
         Visit this link to find out more:<br>
         <a href='https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/' target='_blank'>
             https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/
