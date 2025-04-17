@@ -62,13 +62,7 @@ if prompt := st.chat_input("What would you like to know today?"):
 # Add custom CSS for a fixed footer at the bottom of the page
 st.markdown("""
 <style>
-/* Hide default streamlit footer */
 footer {
-    visibility: hidden;
-}
-
-/* Style for our custom footer */
-#custom-footer {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -79,30 +73,27 @@ footer {
     font-size: 0.9rem;
     font-family: sans-serif;
     text-align: center;
-    z-index: 9999999;
+    z-index: 998;
 }
 
-/* Add padding to the bottom of the page */
+/* Add padding to the bottom of the page to prevent content from being hidden by the footer */
 .main .block-container {
     padding-bottom: 80px;
 }
 
-/* Ensure the chat input stays visible */
+/* Ensure the chat input stays above the footer */
 .stChatInputContainer {
-    z-index: 999999;
+    z-index: 999;
     position: relative;
     background: white;
     margin-bottom: 10px;
 }
 </style>
-""", unsafe_allow_html=True)
 
-# Inject the custom footer with HTML
-st.markdown("""
-<div id="custom-footer">
+<footer>
     💡🧠🤓 <strong>Want to learn how I come up with responses?</strong>
     <a href="https://ai.meta.com/tools/system-cards/ai-systems-that-generate-text/" target="_blank" style="color: #007BFF; text-decoration: none;">
         Read more here →
     </a>
-</div>
+</footer>
 """, unsafe_allow_html=True)
