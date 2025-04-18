@@ -50,7 +50,6 @@ footer {
     right: 0;
     background: transparent;
     padding: 15px;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
     font-size: 0.9rem;
     font-family: sans-serif;
     text-align: center;
@@ -104,7 +103,7 @@ if prompt := st.chat_input("What would you like to know today?"):
 
     # Generate a response using the OpenAI API.
     stream = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=[
             {"role": m["role"], "content": m["content"]} for m in st.session_state.messages
         ],
