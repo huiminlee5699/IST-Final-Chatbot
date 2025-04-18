@@ -3,15 +3,6 @@ import streamlit.components.v1 as components
 from openai import OpenAI
 import time
 
-
-def run():
-        iframe_src = "https://www.figma.com/proto/ZeWFZShKd7Pu8N3Wwj8wri/Transparency-card?page-id=0%3A1&node-id=1-2&p=f&viewport=54%2C476%2C0.2&t=z8tiRCZcXZC9N553-8&scaling=min-zoom&content-scaling=fixed&hide-ui=1"  # Replace with the Figma website URL
-        components.iframe(iframe_src, height=500, width=800)
-
-    if __name__ == "__main__":
-        run()
-        
-
 st.set_page_config(
     page_title="💬 CHATBOT AI",
 )
