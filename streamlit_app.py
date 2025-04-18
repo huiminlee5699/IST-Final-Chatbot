@@ -70,13 +70,37 @@ footer {
 }
 </style>
 
+
+# Initialize click tracking variable in session state
+if 'link_clicked' not in st.session_state:
+    st.session_state.link_clicked = False
+
+# Function to handle link click
+def link_click():
+    st.session_state.link_clicked = True
+    external_url = "https://www.figma.com/proto/ZeWFZShKd7Pu8N3Wwj8wri/Transparency-card?page-id=0%3A1&node-id=1-2&p=f&viewport=54%2C476%2C0.2&t=z8tiRCZcXZC9N553-8&scaling=min-zoom&content-scaling=fixed&hide-ui=1"
+    js = f"window.open('{external_url}', '_blank')"
+    components.html(f"<script>{js}</script>", height=0)
+
+# Replace your footer link with a Streamlit button:
+footer_html = """
 <footer>
     💡🧠🤓 <strong>Want to learn how I come up with responses?</strong>
-    <a href="https://www.figma.com/proto/ZeWFZShKd7Pu8N3Wwj8wri/Transparency-card?page-id=0%3A1&node-id=1-2&p=f&viewport=54%2C476%2C0.2&t=z8tiRCZcXZC9N553-8&scaling=min-zoom&content-scaling=fixed&hide-ui=1" target="_blank" style="color: #007BFF; text-decoration: none;">
-        Read more here →
-    </a>
 </footer>
-""", unsafe_allow_html=True)
+"""
+
+st.markdown(footer_html, unsafe_allow_html=True)
+
+if st.button("Read more here →"):
+    link_click()
+
+# For testing purposes, you can display if the link was clicked:
+st.write(f"Link clicked: {st.session_state.link_clicked}")
+
+
+
+
+
 
 # Use the API key from Streamlit secrets
 openai_api_key = st.secrets["openai_api_key"]
