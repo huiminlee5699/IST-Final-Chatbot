@@ -7,6 +7,33 @@ st.set_page_config(
     page_title="💬 CHATBOT AI",
 )
 
+# Add Maze.co tracking script at the bottom of your app
+maze_script = """
+<script>
+(function (m, a, z, e) {
+  var s, t;
+  try {
+    t = m.sessionStorage.getItem('maze-us');
+  } catch (err) {}
+  if (!t) {
+    t = new Date().getTime();
+    try {
+      m.sessionStorage.setItem('maze-us', t);
+    } catch (err) {}
+  }
+  s = a.createElement('script');
+  s.src = z + '?apiKey=' + e;
+  s.async = true;
+  a.getElementsByTagName('head')[0].appendChild(s);
+  m.mazeUniversalSnippetApiKey = e;
+})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', '16abf1fc-3397-439b-9561-75896a7f1306');
+</script>
+"""
+
+# Inject the script using components.html
+components.html(maze_script)
+
+
 st.markdown("""
 <style>
     /* Import fonts */
