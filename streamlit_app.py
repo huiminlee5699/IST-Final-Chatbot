@@ -20,7 +20,6 @@ footer {
     right: 0;
     background: transparent;
     padding: 15px;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
     font-size: 0.9rem;
     font-family: sans-serif;
     text-align: center;
