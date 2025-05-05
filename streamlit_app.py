@@ -3,8 +3,40 @@ import streamlit.components.v1 as components
 from openai import OpenAI
 import time
 
+# Set page config first
+st.set_page_config(
+    page_title="💬 CHATBOT AI",
+)
+
+# Original styling - unchanged
+st.markdown("""
+<style>
+    /* Import fonts */
+    @import url("https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+    
+    /* Title font (Inria Sans) */
+    .main h1 {
+        font-family: 'Inria Sans', sans-serif !important; 
+        color: #3f39e3 !important;
+    }
+    /* Additional selectors to ensure title styling */
+    .st-emotion-cache-10trblm h1, 
+    .stMarkdown h1 {
+        font-family: 'Inria Sans', sans-serif !important; 
+        color: #3f39e3 !important;
+    }
+    
+    /* All other text (Inter) */
+    body, p, div, span, li, a, button, input, textarea, .stTextInput label {
+        font-family: 'Inter', sans-serif !important;
+    } 
+</style>
+""", unsafe_allow_html=True)
+
 # Show title and description.
-st.title("💬 Chatbot")
+st.markdown("<h1 style='font-family: \"Inria Sans\", sans-serif; color: #3f39e3;'>💬 CHATBOT AI</h1>", unsafe_allow_html=True)
+
 st.write(
     "Welcome to Chatbot, a new OpenAI-powered chatbot! "
     "Feel free to ask me anything!"
